@@ -12,27 +12,17 @@ def get_npy(fn):
     x = loader()
     return x
 
-def remove_other():
-    csv_df = pd.read_csv('/home/joann8512/NAS_189/home/LoopClassifier/audio_label2_fixed.csv')
-    lst = []
-    for line in range(len(csv_df)):
-        if np.array(csv_df.loc[line][-1]) == 1:
-            lst.append(line)
-    csv_df3 = csv_df.drop(lst, axis=0)
-    csv_df3.to_csv('/home/joann8512/NAS_189/home/LoopClassifier/audio_label_noOther.csv', index=False)
-    
-
 def main():
     fs = 16000
-    data_path = "/home/joann8512/NAS_189/home/LoopClassifier/"
+    data_path = "./"
     #files = glob.glob(os.path.join(data_path, 'For_Instrument_Classification', 'audio', 'wav', '*.wav'))
     files = glob.glob(os.path.join(data_path, 'FSL10K', 'audio', 'wav', '*.wav'))
-    npy_path = os.path.join(data_path, 'full_npy')  
+    npy_path = os.path.join(data_path, 'data_npy')  
     if not os.path.exists(npy_path):
         os.makedirs(npy_path)
 
     used = []
-    f = open(os.path.join(data_path, "full_used.txt"), "r")
+    f = open(os.path.join(data_path, "data_used.txt"), "r")
     for x in f:
          used.append(x.strip('\n'))
 
