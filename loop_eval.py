@@ -143,8 +143,8 @@ class Predict(object):
         index = 0
         for line in tqdm.tqdm(filelist):
             ix, fn = line.split('\t')
-            #file = open("/home/joann8512/NAS_189/home/LoopClassifier/prediction/new_pred.txt","a") 
-            #file2 = open("/home/joann8512/NAS_189/home/LoopClassifier/prediction/fixed_multipred.txt","a")
+            #file = open("./LoopClassifier/prediction/prediction.txt","a")
+            #file2 = open("./LoopClassifier/prediction/multi_pred.txt","a")
 
             # load and split
             x = self.get_tensor(fn, num_chunks)
