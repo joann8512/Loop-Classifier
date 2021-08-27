@@ -15,7 +15,6 @@ def get_npy(fn):
 def main():
     fs = 16000
     data_path = "./"
-    #files = glob.glob(os.path.join(data_path, 'For_Instrument_Classification', 'audio', 'wav', '*.wav'))
     files = glob.glob(os.path.join(data_path, 'FSL10K', 'audio', 'wav', '*.wav'))
     npy_path = os.path.join(data_path, 'data_npy')  
     if not os.path.exists(npy_path):
@@ -28,8 +27,6 @@ def main():
 
     for fn in tqdm.tqdm(files):
         name = fn.split('/')[-1]  # fn = full wav file path
-        #name = name.split('_')[0]
-        #if name in open('/home/joann8512/NAS_189/home/LoopClassifier/audio_label2_fixed.csv').read():
         if name in used:
             npy_fn = os.path.join(npy_path, fn.split('/')[-1].split('.')[0]+'.npy')
             if not os.path.exists(npy_fn):

@@ -56,7 +56,7 @@ if __name__ == '__main__':
     parser.add_argument('--use_tensorboard', type=int, default=1)
     parser.add_argument('--model_save_path', type=str, default='./models_full')
     parser.add_argument('--model_load_path', type=str, default='.')
-    parser.add_argument('--data_path', type=str, default='/home/joann8512/NAS_189/home/LoopClassifier/')
+    parser.add_argument('--data_path', type=str, default='./LoopClassifier/')
     parser.add_argument('--log_step', type=int, default=20)
 
     config = parser.parse_args()

@@ -3,8 +3,7 @@ import numpy as np
 import pandas as pd
 
 def main():
-    save_path = "/home/joann8512/NAS_189/home/LoopClassifier/"
-    #csv_df = pd.read_csv(os.path.join(save_path, 'audio_label2_fixed.csv'))
+    save_path = "./LoopClassifier/"
     csv_df = pd.read_csv(os.path.join(save_path, 'new_full.csv'))
     binary = np.zeros((2936, 6))  # 1856
     titles = []
@@ -29,7 +28,7 @@ def main():
     #    if i not in drop_list:
     #        filenames.append(titles[i])
     
-    npy_list = os.listdir('/home/joann8512/NAS_189/home/LoopClassifier/full_npy')
+    npy_list = os.listdir('./LoopClassifier/full_npy')
     npy_list = [i.split('.')[0] for i in npy_list]
     
     filenames = titles        
