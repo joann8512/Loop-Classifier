@@ -28,7 +28,7 @@ def main():
     #    if i not in drop_list:
     #        filenames.append(titles[i])
     
-    npy_list = os.listdir('./LoopClassifier/full_npy')
+    npy_list = os.listdir('./LoopClassifier/data_npy')
     npy_list = [i.split('.')[0] for i in npy_list]
     
     filenames = titles        
@@ -48,7 +48,7 @@ def main():
     short_binary = np.array(short_binary)        
             
     #binary = np.delete(binary, drop, axis = 0)
-    np.save(open(os.path.join(save_path, 'binary_full.npy'), 'wb'), short_binary)
+    np.save(open(os.path.join(save_path, 'binary.npy'), 'wb'), short_binary)
 
     tr = []
     val = []
@@ -63,9 +63,9 @@ def main():
         else:
             if short_binary[i].sum() > 0:
                 test.append(str(i)+'\t'+title)
-    np.save(open(os.path.join(save_path, 'train_full.npy'), 'wb'), tr) #tr_exist)
-    np.save(open(os.path.join(save_path, 'valid_full.npy'), 'wb'), val) #val_exist)
-    np.save(open(os.path.join(save_path, 'test_full.npy'), 'wb'), test)
+    np.save(open(os.path.join(save_path, 'train.npy'), 'wb'), tr) #tr_exist)
+    np.save(open(os.path.join(save_path, 'valid.npy'), 'wb'), val) #val_exist)
+    np.save(open(os.path.join(save_path, 'test.npy'), 'wb'), test)
     
     
 if __name__ == "__main__":
