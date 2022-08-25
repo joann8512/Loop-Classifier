@@ -6,7 +6,11 @@ The proposed work introduces a new type of auto-tagging task, called instrument 
 To obtain the dataset used in this work, please refer to [FSLD](https://zenodo.org/record/3967852) for the data.  
 And please cite this paper if you use this dataset:
 ```ruby
-@inproceedings{ramires2020, author = "Antonio Ramires and Frederic Font and Dmitry Bogdanov and Jordan B. L. Smith and Yi-Hsuan Yang and Joann Ching and Bo-Yu Chen and Yueh-Kao Wu and Hsu Wei-Han and Xavier Serra", title = "The Freesound Loop Dataset and Annotation Tool", booktitle = "Proc. of the 21st International Society for Music Information Retrieval (ISMIR)", year = "2020" }
+@inproceedings{ramires2020, 
+               author = "Antonio Ramires and Frederic Font and Dmitry Bogdanov and Jordan B. L. Smith and Yi-Hsuan Yang and Joann Ching and Bo-Yu Chen and Yueh-Kao Wu and Hsu Wei-Han and Xavier Serra", 
+               title = "The Freesound Loop Dataset and Annotation Tool", 
+               booktitle = "Proc. of the 21st International Society for Music Information Retrieval (ISMIR)", 
+               year = "2020" }
 ```
 
 ## Inferencing With Pretrained Model 
