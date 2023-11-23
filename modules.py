@@ -7,12 +7,10 @@ Created on Tue Jul 14 15:25:27 2020
 #%%
 import numpy as np
 import torch
-import torch.nn.functional as F
 import torch.nn as nn
+import torch.nn.functional as F
 import torchaudio
-import sys
 from torch.autograd import Variable
-import math
 import librosa
 
 #%%

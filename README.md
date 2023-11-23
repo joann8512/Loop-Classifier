@@ -20,8 +20,8 @@ To use the pretrained model of this work, set path to data and run ```loop_eval.
 1. Run ```data_preprocess/data.py``` to get your audio data for training in npy format.
 2. Run ```data_preprocess/split.py``` to split all data into train/valid/test.
 3. Run ```data_preprocess/check_length.py``` to make sure the segments are all in the 3 seconds frame.
-4. In ```loop_main.py``` , make sure to change the data path to the directory of your npy files, and you can start training!
-5. Lastly, run ```loop_eval.py``` to check out the classification results.
+4. In ```main.py``` , make sure to change the data path to the directory of your npy files, and you can start training!
+5. Lastly, run ```eval.py``` to check out the classification results.
 
 ## Cite
 [1] Joann Ching, Antonio Ramires, Yi-Hsuan Yang. "Instrument Role Classification: Auto-tagging for Loop Based Music" (KTH'20)

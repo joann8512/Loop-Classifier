@@ -1,30 +1,25 @@
 import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "3"
 
-import time
 import numpy as np
 import pandas as pd
-import datetime
 import tqdm
 import fire
 import argparse
 from sklearn import metrics
 from sklearn.metrics import confusion_matrix
-import matplotlib.pyplot as plt
-
 
 import torch
 import torch.nn as nn
 from torch.autograd import Variable
 
-from loop_model import Model
+from model import Model
 
 
 class Predict(object):
     def __init__(self, config):
         # data loader
         self.input_length = config.input_length
-        #self.dataset = config.dataset
         self.data_path = config.data_path
 
         # model hyper-parameters
@@ -59,8 +54,7 @@ class Predict(object):
                       n_fft=self.n_fft,
                       n_harmonic=self.n_harmonic,
                       semitone_scale=self.semitone_scale,
-                      learn_bw=self.learn_bw) #,
-                      #dataset=self.dataset)
+                      learn_bw=self.learn_bw)
 
     def build_model(self):
         # model and optimizer
@@ -73,7 +67,7 @@ class Predict(object):
     def load(self, filename):
         S = torch.load(filename)
         self.model.load_state_dict(S)
-        print(self.model.hstft.bw_Q)  # model.hconv
+        print(self.model.hstft.bw_Q)
 
     def to_var(self, x):
         if torch.cuda.is_available():
@@ -123,8 +117,6 @@ class Predict(object):
     def get_f1(self, est_array, gt_array):
         est_array = np.array(est_array)
         gt_array = np.array(gt_array)
-        #np.save(open('dcase_results/est_load_val_6.npy', 'wb'), est_array)
-        #np.save(open('dcase_results/gt_load_val_6.npy', 'wb'), gt_array)
         prd_array = (est_array>0.1).astype(np.float32)
         f1 = metrics.f1_score(gt_array, prd_array, average='samples')
         print('f1: %.4f' % f1)
@@ -134,7 +126,7 @@ class Predict(object):
 
     def evaluate_multiclass(self, num_chunks=16):
         self.model.eval()
-        filelist = np.load(os.path.join(self.data_path, 'test_full.npy'))###
+        filelist = np.load(os.path.join(self.data_path, 'test_full.npy'))
         binary = np.load(os.path.join(self.data_path, 'binary_full.npy'))
 
         est_array = []
@@ -143,8 +135,6 @@ class Predict(object):
         index = 0
         for line in tqdm.tqdm(filelist):
             ix, fn = line.split('\t')
-            #file = open("./LoopClassifier/prediction/prediction.txt","a")
-            #file2 = open("./LoopClassifier/prediction/multi_pred.txt","a")
 
             # load and split
             x = self.get_tensor(fn, num_chunks)
@@ -153,30 +143,16 @@ class Predict(object):
             prd = self.forward(x)
             
             # estimated
-            estimated = np.array(prd).mean(axis=0)  # prd
-            est_array.append(estimated)  # estimated
+            estimated = np.array(prd).mean(axis=0)
+            est_array.append(estimated)
 
             # ground truth
             ground_truth = binary[int(ix)]
             gt_array.append(ground_truth)
-            index += 1
-            #file.write("gt: " + str(gt_array[-1]) + "  est: " + str(est_array[-1])+'\n')
-            #count = np.count_nonzero(ground_truth)
-            #if count == 1:
-                #est_array.append(estimated)  # estimated
-                #gt_array.append(ground_truth)
-                #file.write(fn + ': ')
-                #file.write("gt: " + str(gt_array[-1]) + "  est: " + str(est_array[-1])+'\n')
-                #file.close()
-            #else:
-                #file2.write(fn + ': ')
-                #file2.write("gt: " + str(gt_array[-1]) + "  est: " + str(est_array[-1])+'\n')
-                #file2.close()
 
         # get roc_auc and pr_auc
         self.get_auc(est_array, gt_array)
         self.get_f1(est_array, gt_array)
-        #print(tfa.metrics.hamming.hamming_loss_fn(gt_array, est_array, threshold=0.5, mode='multilabel'))
         
 
     def evaluate_singleclass(self, num_chunks=16):
@@ -211,7 +187,6 @@ if __name__ == '__main__':
 
     # dataset
     parser.add_argument('--input_length', type=int, default=48000)
-    #parser.add_argument('--dataset', type=str, default='mtat', choices=['mtat', 'dcase', 'keyword'])
 
     # training settings
     parser.add_argument('--n_epochs', type=int, default=200)

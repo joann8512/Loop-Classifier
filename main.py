@@ -7,19 +7,17 @@ Created on Tue Jul 14 15:23:01 2020
 
 import os
 import argparse
-from loop_solver import Solver
+from solver import Solver
 
 #%%
 
 def main(config):
-    #assert config.dataset
-
     # path for models
     if not os.path.exists(config.model_save_path):
         os.makedirs(config.model_save_path)
 
     # import data loader
-    from loop_loader import get_audio_loader
+    from loader import get_audio_loader
 
     # get data loader
     data_loader = get_audio_loader(config.data_path,
@@ -47,7 +45,6 @@ if __name__ == '__main__':
     # dataset
     parser.add_argument('--input_length', type=int, default=48000)
     parser.add_argument('--num_workers', type=int, default=4)
-    #parser.add_argument('--dataset', type=str, default='For_Instrument_Classifier')
 
     # training settings
     parser.add_argument('--n_epochs', type=int, default=200)
@@ -56,7 +53,7 @@ if __name__ == '__main__':
     parser.add_argument('--use_tensorboard', type=int, default=1)
     parser.add_argument('--model_save_path', type=str, default='./models_full')
     parser.add_argument('--model_load_path', type=str, default='.')
-    parser.add_argument('--data_path', type=str, default='./LoopClassifier/')
+    parser.add_argument('--data_path', type=str, default='./Loop-Classifier/')
     parser.add_argument('--log_step', type=int, default=20)
 
     config = parser.parse_args()

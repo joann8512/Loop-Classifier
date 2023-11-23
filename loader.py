@@ -18,7 +18,6 @@ class AudioFolder(data.Dataset):
         self.binary = np.load(os.path.join(self.root, 'binary_full.npy'))
 
     def __getitem__(self, index):
-        #print("INDEX:", index)
         npy, tag_binary = self.get_npy(index)
         return npy.astype('float32'), tag_binary.astype('float32')
 
@@ -27,7 +26,7 @@ class AudioFolder(data.Dataset):
 
     def get_npy(self, index):
         ix, fn = self.fl[index].split('\t')  # fn = wav filename
-        npy_path = os.path.join(self.root, 'npy_full', fn.split('.')[0]+'.npy')  #.split('/')[1][:-3])  # only get training files from npy
+        npy_path = os.path.join(self.root, 'npy_full', fn.split('.')[0]+'.npy')  # only get training files from npy
         npy = np.load(npy_path)
         random_idx = int(np.floor(np.random.random(1) * (len(npy)-self.input_length)))  # input_length = how long to go in model
         npy = np.array(npy[random_idx:random_idx+self.input_length])

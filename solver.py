@@ -9,18 +9,18 @@ import os
 os.environ["CUDA_VISIBLE_DEVICES"] = "6"
 
 import time
+import datetime
+import tqdm
 import numpy as np
 import pandas as pd
 from sklearn import metrics
-import datetime
-import tqdm
 
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from torch.autograd import Variable
 
-from loop_model import Model
+from model import Model
 
 
 
@@ -76,9 +76,6 @@ class Solver(object):
     def build_model(self):
         # model
         self.model = self.get_model()
-        #self.cuda_num = 1
-        #self.cuda_str = 'cuda:' + str(self.cuda_num)
-        #self.device = torch.device(1)
 
         # cuda
         if self.is_cuda:
@@ -89,7 +86,9 @@ class Solver(object):
             self.load(self.model_load_path)
 
         # optimizers
-        self.optimizer = torch.optim.SGD(self.model.parameters(), self.lr)  #torch.optim.Adam(self.model.parameters(), self.lr, weight_decay=1e-4)
+        #torch.optim.Adam(self.model.parameters(), self.lr, weight_decay=1e-4)
+        self.optimizer = torch.optim.SGD(self.model.parameters(), self.lr)  
+        
 
     def load(self, filename):
         S = torch.load(filename)
@@ -223,8 +222,6 @@ class Solver(object):
 
             # ground truth
             ground_truth = self.binary[int(ix)]
-            #file = open('/home/joann8512/NAS_189/home/LoopClassifier/see.txt', 'a')
-            #file.write(str(ground_truth.sum()))
 
             # forward
             x = self.to_var(x)
